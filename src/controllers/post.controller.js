@@ -70,4 +70,40 @@ async function getPosts(req,res){
         posts
     })  
 }
-module.exports = {postCreation,getPosts};
+// postdetail api
+ async function detailPost(req, res){
+   const postId = req.params.postId; //endpoint, dynamic postId
+
+   const token = req.cookies.token;
+   if(!token){
+   return res.status(401).json({
+        message:"Unautorized access"
+    })
+   }
+   let verifyToken
+   try{
+   verifyToken = jwt.verify(token, process.env.JWT_SECRET)
+   }catch(error){
+    res.status(401).json({
+        message:"Not valid token"
+    })
+   }
+   const post = await postModel.findById(postId)
+   
+
+   const checkUserCorrect = verifyToken.id == post.userId.toString()
+   if(!checkUserCorrect)
+   {
+    res.status(401).json({
+        Message:"Post not found"
+    })
+   }
+   res.status(200).json({
+    Message:"Here is your post",
+    post
+
+   })
+
+
+ }
+module.exports = {postCreation,getPosts,detailPost};

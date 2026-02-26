@@ -8,5 +8,6 @@ const upload = multer({ storage: storage })  //using multer to store the file in
 
 postRoute.post("/",upload.single("image"),postController.postCreation)
 postRoute.get("/getpost",postController.getPosts)
+postRoute.get("/getpost/detail/:postId",postController.detailPost)
 
 module.exports = postRoute;
