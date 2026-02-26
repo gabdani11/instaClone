@@ -1,6 +1,7 @@
 
 const authModel = require('../model/auth.model')
-const crypto = require('crypto');
+// const crypto = require('crypto');not going to use this instead
+const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 //register api
 async function registerController(req,res){
@@ -16,7 +17,7 @@ async function registerController(req,res){
             message:checkUser.email==email?"Email already exist":"Username already exist"
         })
     }
-    const hash = crypto.createHash('sha256').update(password).digest('hex');
+    const hash = await bcrypt.hash(password,10)
     const user = await authModel.create({
         username,
         email,
@@ -62,7 +63,7 @@ async function loginController(req,res){
 
         })
     }
-    const checkPassword = checkUserExist.password == crypto.createHash('sha256').update(password).digest('hex')
+    const checkPassword = await bcrypt.compare(password, checkUserExist.password)
     if(!checkPassword){
         return res.status(401).json({
             message:"Password is incorrect"
