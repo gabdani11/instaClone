@@ -10,6 +10,6 @@ const upload = multer({ storage: storage })  //using multer to store the file in
 postRoute.post("/",identifiesUser,upload.single("image"),postController.postCreation)
 postRoute.get("/getpost",identifiesUser,postController.getPosts)
 postRoute.get("/getpost/detail/:postId",identifiesUser,postController.detailPost) //getting postId from user as dynamic routing
-
+postRoute.post("/like/:postId",identifiesUser,postController.postLikeController)
 
 module.exports = postRoute;
