@@ -84,7 +84,24 @@ async function loginController(req,res){
 
     })
 }
+
+//get me data api 
+async function getMeController(req,res){
+    const userId = req.user.id;
+    const user = await authModel.findById(userId)
+    res.status(200).json({
+        message:"User data",
+        username:user.username,
+        email:user.email,
+        bio:user.bio,
+        profileImage:user.profile
+
+
+    })
+
+}
 module.exports = {
     registerController,
-    loginController
+    loginController,
+    getMeController
 }
