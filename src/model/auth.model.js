@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type:String,
-        required:[true,"Password is required"]
+        required:[true,"Password is required"],
+        select:false //this will prevent to let this read.. so this will not show on the frontend while calling api
     },
     bio:{
         type:String,

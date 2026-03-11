@@ -4,7 +4,7 @@ async function identifiesUser(req,res,next){
 const token = req.cookies.token //taking token from cookies
      
      if(!token){
-      return res.stauts(401).json({    //if not toke then this
+      return res.status(401).json({    //if not toke then this
             message:"Unauthorized access"
         })
      }

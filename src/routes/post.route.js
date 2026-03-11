@@ -11,5 +11,6 @@ postRoute.post("/",identifiesUser,upload.single("image"),postController.postCrea
 postRoute.get("/getpost",identifiesUser,postController.getPosts)
 postRoute.get("/getpost/detail/:postId",identifiesUser,postController.detailPost) //getting postId from user as dynamic routing
 postRoute.post("/like/:postId",identifiesUser,postController.postLikeController)
+postRoute.get("/feed", identifiesUser, postController.getFeedController)
 
 module.exports = postRoute;

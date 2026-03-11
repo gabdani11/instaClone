@@ -100,4 +100,14 @@ async function getPosts(req,res){
 
 
  }
-module.exports = {postCreation,getPosts,detailPost,postLikeController};
+ async function getFeedController(req,res){
+    const user = req.user //from middleware
+
+    const posts = await postModel.find({}).populate('userId')
+    res.status(200).json({
+        message:"All post",
+        posts
+    })
+    
+ }
+module.exports = {postCreation,getPosts,detailPost,postLikeController,getFeedController};

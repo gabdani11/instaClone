@@ -57,7 +57,7 @@ async function loginController(req,res){
             {username},
             {email}
         ]
-    })
+    }).select("+password");//this will force select the password from backend
     if(!checkUserExist){
         return res.status(401).json({
             message:"User don't exist"
